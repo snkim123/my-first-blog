@@ -1,6 +1,18 @@
 {% extends 'blog/base.html' %}
 
+
+
 {% block content %}
+    <table cellspacing=1 width=700 border=0>
+          <tr>
+              <td> 게시물수: {{ total_cnt }}</td>
+              <td><p align=right> 페이지:{{ current_page }}</td>
+          </tr>
+    </table>
+
+
+
+
     {% for post in posts %}
         <div class="post">
             <div class="date">
@@ -8,6 +20,32 @@
             </div>
             <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
             <p>{{ post.text|linebreaksbr }}</p>
+            <a href="{% url 'post_detail' pk=post.pk %}">Comments : {{ post.approved_comments.count }}</a>
         </div>
+
     {% endfor %}
+
+    <table cellspacing=1 width=700 border=0 >
+          <tr>
+              <td>
+              {% for page in total_page_list %}
+                  <a href="/post_list_specific_page?current_page={{page}}" >
+                  [
+                  {% ifequal page current_page %}
+                      <b>
+                  {% endifequal %}
+                  {{page}}
+
+                  {% ifequal page current_page  %}
+                      </b>
+                  {% endifequal %}
+                  ]
+              {% endfor %}
+              </td>
+          </tr>
+    </table>
+
+
+
+
 {% endblock content %}

@@ -10,7 +10,7 @@ class PostForm(forms.ModelForm):
         fields = ('title', 'text',)
 
 
-
+#add comment this just for  test
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
